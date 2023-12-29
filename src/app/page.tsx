@@ -10,7 +10,6 @@ export default function Home() {
   const [formValues, setFormValues] = useState<any>({});
 
   function handleChange({ target }:{target: any}) {
-    console.log("formValues----->",formValues)
     setFormValues({ ...formValues, [target.name]: target.value});
   }
 
