@@ -10,7 +10,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log('req--->',req.body)
 
   try {
-    const backgroundVideoPath = "./public/video-bg.mp4";
+    const backgroundVideoPath = "./public/output.mp4";
 
     const outputFolder = "./public/output-outro";
 
