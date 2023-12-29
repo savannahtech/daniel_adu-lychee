@@ -1,5 +1,8 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+The backend is using nextjs server-side to handle video generation:
+
+
 ## Getting Started
 
 First, run the development server:
@@ -27,6 +30,6 @@ docker compose up
 
 
 
-# find generated vidoe in public/output-outro
+find generated vidoe in public/output-outro
 
 
