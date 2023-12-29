@@ -1,22 +1,55 @@
 import { exec } from 'child_process';
 import { NextApiRequest, NextApiResponse } from 'next';
+import ffmpeg from "fluent-ffmpeg";
+
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const text = 'test text';
-  const fontSize = 32;
-  const textColor = '#FF00F2';
-  const durationInSeconds = 20;
+ 
+  const {brandKitName, action} = req.body
 
-  // Execute FFmpeg command to generate video
-  exec(
-    `ffmpeg -f lavfi -i color=c=black:s=640x480:d=${durationInSeconds} -vf "drawtext=text='${text}':fontcolor=${textColor}:fontsize=${fontSize}:x=(w-text_w)/2:y=(h-text_h)/2" output.mp4`,
-    (error, stdout, stderr) => {
-      if (error) {
-        console.error('Error:', error);
-        return res.status(500).json({ error: 'Video generation failed' });
-      }
-      console.log('Video generated:', stdout);
-      res.status(200).json({ message: 'Video generated successfully' });
-    }
-  );
+  console.log('req--->',req.body)
+
+  try {
+    const backgroundVideoPath = "./public/black-video-bg.mp4";
+
+    const outputFolder = "./public/output-outro";
+
+    const blankVideoPath = `${outputFolder}/blank.mp4`;
+
+    ffmpeg()
+      .input("color=black@0.0:size=720x1280")
+      .inputOptions("-t 20")
+      .inputFormat("lavfi")
+      .output(blankVideoPath)
+      .on("end", () => {
+        ffmpeg()
+          .input(backgroundVideoPath)
+          .input(blankVideoPath)
+          .complexFilter([
+            {
+              filter: "drawtext",
+              options: {
+                text: action,
+                fontfile: "./public/OpenSans-Regular.ttf", 
+                fontsize: 32,
+                fontcolor: "#FF00F2",
+                x: "(w-text_w)/2",
+                y: "(h-text_h)/2",
+                enable: "between(t,0,4)", 
+              },
+            },
+          ])
+          .output(`${outputFolder}/${brandKitName}.mp4`)
+          .on("end", () => console.log("Outro video generation finished"))
+          .on("error", (err) => console.error(`Error: ${err.message}`))
+          .run();
+      })
+      .on("error", (err) => console.error(`Error: ${err.message}`))
+      .run();
+
+    res.json({success: true, message: "Outro successfully generated"});
+  } catch (error) {
+    console.log("create-outro-error -->", error);
+    res.json({success: false, message: "An error occured !"});
+  }
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { DefaultCallToActions } from "../utils/constants";
 import { INavMenu, IOutroView, ISelectOpions } from "../utils/interfaces";
 
+
 export default function OutroView({formValues, setFormValues}:IOutroView){
 
     const [calltoActionList, setCalltoActionList] = useState<any>(DefaultCallToActions);
@@ -37,6 +38,8 @@ export default function OutroView({formValues, setFormValues}:IOutroView){
 
     const countCustomAction = formValues?.customAction?.length || 0
 
+
+    console.log("formValues--->",formValues)
 
     return(
         <div className="">

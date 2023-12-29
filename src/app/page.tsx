@@ -27,14 +27,11 @@ export default function Home() {
   }, [])
 
   const generateVideo = async () => {
+    if(!formValues?.action) return alert("Call to action is required")
+    if(!formValues?.brandKitName) return alert("Brand Kit Name is required")
 
     console.log("formValues",formValues)
 
-    const data = {
-      text: 'Text',
-      color: '#FF00F2',
-      duration: 20 * 60, // 20 minutes in seconds
-    };
   
     try {
       const response = await fetch('/api/video/generate-video', {
@@ -42,18 +39,18 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formValues),
       });
   
       if (response.ok) {
         console.log('Video generation initiated');
         // Handle success
       } else {
-        console.error('Failed to initiate video generation');
+        console.log('Failed to initiate video generation');
         // Handle error
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.log('Error:', error);
       // Handle network or other errors
     }
   };
