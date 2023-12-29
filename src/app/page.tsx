@@ -1,9 +1,9 @@
 "use client"
 
-import { useCallback, useState } from 'react';
-import NavMenu from './components/NavMenu';
+import { useState } from 'react';
+import NavMenu from '@/app/components/NavMenu';
 import { TDisplayMenuFeature } from './utils/types';
-import OutroView from './features/Outro';
+import OutroView from '@/app/features/Outro';
 
 export default function Home() {
   const [activeMenuItem, setActiveMenuItem] = useState<string>("outro");
@@ -13,11 +13,10 @@ export default function Home() {
     setFormValues({ ...formValues, [target.name]: target.value});
   }
 
-
   const displayMenuFeature : TDisplayMenuFeature = {
     texts: <div>Texts Feature</div>,
     logo: <div>Logo Feature</div>,
-    outro: <OutroView  handleChange={handleChange}/>,
+    outro: <OutroView  handleChange={handleChange} formValues={formValues}/>,
     broll: <div>B-roll Feature</div>,
     customBrandkit: <div>Custom Brand Kit Feature</div>,
   }
@@ -53,7 +52,7 @@ export default function Home() {
   
 
   return (
-    <main className="flex min-h-screen flex-col justify-between p-20 bg-[#F9F8F8]">
+    <main className="flex min-h-screen flex-col justify-between p-10 bg-[#F9F8F8]">
       <div className="p-2 text-dark">
         <p className="text-[32px] text-[#191C26]">Brand Kit</p>
         <p className="font-light text-[18px] mt-1">Here you can set the brand kit for your Short-Form clips. Note,<br/> 
@@ -74,10 +73,9 @@ export default function Home() {
               </div> 
             </div>
             <hr className="border-t mt-10 mb-5" />
-            <button type="submit" className="bg-[#2237FF] text-xs p-1 text-white px-4 rounded-md" onClick={generateVideo}>Save</button>
+            <button type="button" className="bg-[#2237FF] text-xs p-1 text-white px-4 rounded-md" onClick={generateVideo}>Save</button>
           </div>
         </div>
-        
       </div>
     </main>
   )

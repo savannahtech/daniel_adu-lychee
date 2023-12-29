@@ -1,4 +1,4 @@
- 
+
 export interface INavMenu {
     activeMenuItem: string;
     setActiveMenuItem: (activeMenuItem: string) => void
@@ -6,10 +6,15 @@ export interface INavMenu {
 }
 
 export interface IOutroView {
-    handleChange: ((formValues: any) => void)
+    formValues:any,
+    handleChange: ((formValues: any) => void),
 }
 
 export interface ISelectOpions {
     label: string;
     value: string;
+}
+
+export interface IToolTip {
+    text: string;
 }

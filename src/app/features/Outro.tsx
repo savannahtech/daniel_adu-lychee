@@ -1,74 +1,49 @@
-import { useEffect, useState } from "react";
-import { DefaultCallToActions } from "../utils/constants";
-import { INavMenu, IOutroView, ISelectOpions } from "../utils/interfaces";
+import { useState } from "react";
+import { DefaultCallToActions } from "@/app/utils/constants";
+import { IOutroView, ISelectOpions } from "@/app/utils/interfaces";
+import Tooltip from "@/app/components/Tooltip";
 
 
-export default function OutroView({handleChange}:IOutroView){
+export default function OutroView({handleChange, formValues}:IOutroView){
 
-    const [calltoActionList, setCalltoActionList] = useState<any>(DefaultCallToActions);
-    const [customAction, setCustomeAction] = useState<any>({});
+    const [customAction, setCustomeAction] = useState<string>("");
 
-
-
-    // useEffect(() =>{
-    //     // wait to 2sec before setting new option
-
-        
-    //     setTimeout(() => {
-    //         if(formValues.customAction){
-
-    //             const newOption = {
-    //                 label: formValues.customAction,
-    //                 value: "customAction"
-    //             }
-    //             const updatedList = calltoActionList.map((obj: any) => {
-    //                 if (obj.value === "customAction") {
-    //                   return { ...obj, ...newOption }; // Update the object's properties
-    //                 }else{
-    //                     return { ...obj, ...newOption }; 
-    //                 }
-    //               });
-    //             console.log("setCalltoActionList---",updatedList)
-    //             setCalltoActionList([...calltoActionList, ...updatedList])
-    //         }
-    //     }, 2000);
-    // },[formValues.customAction])
+    function handleChangeSelect(target :{target: any}){
+        handleChange(target)
+        setCustomeAction("")
+    }
     
 
-
-
-
     function handleChangeCustomeAction({ target }:{target: any}) {
-        setCustomeAction({ label: "customAction", value:target.value})
+        setCustomeAction(target.value)
+        const newtarget = {target: {...target, "name":"action"}}
+        handleChange(newtarget)
     }
 
-    const countCustomAction = customAction?.value?.length || 0
+    const countCustomAction = customAction.length || 0
 
 
     return(
         <div className="">
             <div className="text-[#191C26] inline-flex items-center gap-2">
                 Outro
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <circle cx="8" cy="8" r="7.5" stroke="black"/>
-                    <path d="M8 4V7.55556" stroke="#191C26" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M8 11.1133H8.00889" stroke="#191C26" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <Tooltip text={"We will show the call to action at the end of the clip"} />
             </div>
+           
             <div className="flex justify-between grid-cols-2 mt-10">
                 <p className="text-[#191C26] font-light text-sm">Call to action</p>
                 <p>
                     <select 
-                    required
+                        required
                         name="action" 
                         className="text-sm font-light h-[32px] border border-solid border-[#EBEBEB] rounded-md px-2 focus:outline-none focus:border-[#EBEBEB]"
-                        onChange={handleChange}
+                        onChange={(e) => handleChangeSelect(e)}
+                        defaultValue={customAction ? "" : formValues?.action}
                         >
-                        <option value={""}>Select</option>
-                        {calltoActionList?.map((action: ISelectOpions, idx: number) => (
+                        <option value={""} selected={!!customAction}>Select</option>
+                        {DefaultCallToActions?.map((action: ISelectOpions, idx: number) => (
                             <option key={idx} value={action.label}>{action.label}</option>
                         ))}
-                        
                     </select>
                 </p>
 
@@ -76,7 +51,8 @@ export default function OutroView({handleChange}:IOutroView){
             <div className="flex justify-between mt-10">
                 <p className="text-[#191C26] font-light text-sm">Custom call to action</p>
                 <p>
-                    <textarea 
+                    <textarea
+                        value={customAction}
                         onChange={handleChangeCustomeAction}
                         cols={35} 
                         rows={3} 

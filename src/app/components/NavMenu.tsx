@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { INavMenu } from "../utils/interfaces";
-import { Menus } from "../utils/constants";
+import { INavMenu } from "@/app/utils/interfaces";
+import { Menus } from "@/app/utils/constants";
 
 
 
