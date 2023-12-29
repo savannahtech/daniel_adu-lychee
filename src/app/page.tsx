@@ -10,6 +10,7 @@ export default function Home() {
   const [formValues, setFormValues] = useState<any>({});
 
   function handleChange({ target }:{target: any}) {
+    console.log("formValues----->",formValues)
     setFormValues({ ...formValues, [target.name]: target.value});
   }
 
@@ -17,20 +18,18 @@ export default function Home() {
   const displayMenuFeature : TDisplayMenuFeature = {
     texts: <div>Texts Feature</div>,
     logo: <div>Logo Feature</div>,
-    outro: <OutroView formValues={formValues} setFormValues={setFormValues} handleChange={handleChange}/>,
+    outro: <OutroView  handleChange={handleChange}/>,
     broll: <div>B-roll Feature</div>,
     customBrandkit: <div>Custom Brand Kit Feature</div>,
   }
 
-  const GetDispalyMenuFeature = useCallback((activeMenuItem: string) => {
+  const GetDispalyMenuFeature = (activeMenuItem: string) => {
     return displayMenuFeature[activeMenuItem]
-  }, [])
+  }
 
   const generateVideo = async () => {
-    console.log("formValues",formValues)
     if(!formValues?.brandKitName) return alert("Brand Kit Name is required")
     if(!formValues?.action) return alert("Call to action is required")
-  
   
     try {
       const response = await fetch('/api/video/generate-video', {
@@ -76,7 +75,7 @@ export default function Home() {
               </div> 
             </div>
             <hr className="border-t mt-10 mb-5" />
-            <button type="button" className="bg-[#2237FF] text-xs p-1 text-white px-4 rounded-md" onClick={generateVideo}>Save</button>
+            <button type="submit" className="bg-[#2237FF] text-xs p-1 text-white px-4 rounded-md" onClick={generateVideo}>Save</button>
           </div>
         </div>
         

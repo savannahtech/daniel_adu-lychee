@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  outro-app:
+    container_name: outro-app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: "outro-app" 
+    restart: always
+    ports:
+      - 3000:3000

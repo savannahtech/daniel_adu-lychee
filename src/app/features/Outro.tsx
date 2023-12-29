@@ -3,13 +3,12 @@ import { DefaultCallToActions } from "../utils/constants";
 import { INavMenu, IOutroView, ISelectOpions } from "../utils/interfaces";
 
 
-export default function OutroView({formValues, setFormValues, handleChange}:IOutroView){
+export default function OutroView({handleChange}:IOutroView){
 
     const [calltoActionList, setCalltoActionList] = useState<any>(DefaultCallToActions);
     const [customAction, setCustomeAction] = useState<any>({});
 
 
-    
 
     // useEffect(() =>{
     //     // wait to 2sec before setting new option
@@ -45,6 +44,7 @@ export default function OutroView({formValues, setFormValues, handleChange}:IOut
 
     const countCustomAction = customAction?.value?.length || 0
 
+
     return(
         <div className="">
             <div className="text-[#191C26] inline-flex items-center gap-2">
@@ -66,7 +66,7 @@ export default function OutroView({formValues, setFormValues, handleChange}:IOut
                         >
                         <option value={""}>Select</option>
                         {calltoActionList?.map((action: ISelectOpions, idx: number) => (
-                            <option key={idx} value={action.value}>{action.label}</option>
+                            <option key={idx} value={action.label}>{action.label}</option>
                         ))}
                         
                     </select>
