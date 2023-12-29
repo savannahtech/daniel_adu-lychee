@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 The backend is using nextjs server-side to handle video generation:
 
-![Lychee Outro Video UI](https://photos.app.goo.gl/YMC3ndTkTzab5wxk6)
+![Lychee Outro Video UI](https://firebasestorage.googleapis.com/v0/b/adansi.appspot.com/o/documents%2FScreenshot%202023-12-29%20at%204.22.17%20PM.png)
 
 
 ## Getting Started
