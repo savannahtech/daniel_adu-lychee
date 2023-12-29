@@ -18,17 +18,15 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
-# With Single Environment Deployment
+# With Docker
 
 ```shell
 docker compose build
 docker compose up
 ```
 
-# With Docker
 
-This examples shows how to use Docker with Next.js and deploy to multiple environment with different env values. Based on the [deployment documentation](https://nextjs.org/docs/deployment#docker-image).
 
-find generated vidoe in public/output-outro
+# find generated vidoe in public/output-outro
 
 
