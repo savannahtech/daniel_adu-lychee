@@ -6,6 +6,10 @@ import { INavMenu, IOutroView, ISelectOpions } from "../utils/interfaces";
 export default function OutroView({formValues, setFormValues}:IOutroView){
 
     const [calltoActionList, setCalltoActionList] = useState<any>(DefaultCallToActions);
+    const [customAction, setCustomeAction] = useState<any>({});
+
+
+    
 
     // useEffect(() =>{
     //     // wait to 2sec before setting new option
@@ -32,14 +36,16 @@ export default function OutroView({formValues, setFormValues}:IOutroView){
     // },[formValues.customAction])
     
 
+
     function handleChange({ target }:{target: any}) {
         setFormValues({ ...formValues, [target.name]: target.value});
     }
 
-    const countCustomAction = formValues?.customAction?.length || 0
+    function handleChangeCustomeAction({ target }:{target: any}) {
+        setCustomeAction({ label: "customAction", value:target.value})
+    }
 
-
-    console.log("formValues--->",formValues)
+    const countCustomAction = customAction?.value?.length || 0
 
     return(
         <div className="">
@@ -73,7 +79,7 @@ export default function OutroView({formValues, setFormValues}:IOutroView){
                 <p className="text-[#191C26] font-light text-sm">Custom call to action</p>
                 <p>
                     <textarea 
-                        onChange={handleChange}
+                        onChange={handleChangeCustomeAction}
                         cols={35} 
                         rows={3} 
                         maxLength={20}
