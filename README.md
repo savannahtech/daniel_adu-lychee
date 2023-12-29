@@ -11,7 +11,7 @@ yarn dev
 or
 
 npm run install
-yarn run dev
+npm run dev
 
 ```
 
@@ -25,7 +25,7 @@ docker compose build
 docker compose up
 ```
 
-# With Docker - Multiple Deployment Environments
+# With Docker
 
 This examples shows how to use Docker with Next.js and deploy to multiple environment with different env values. Based on the [deployment documentation](https://nextjs.org/docs/deployment#docker-image).
 
