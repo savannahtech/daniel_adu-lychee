@@ -1,4 +1,3 @@
-import { exec } from 'child_process';
 import { NextApiRequest, NextApiResponse } from 'next';
 import ffmpeg from "fluent-ffmpeg";
 
@@ -10,8 +9,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log('req--->',req.body)
 
   try {
-    const backgroundVideoPath = "./public/output.mp4";
-
     const outputFolder = "./public/output-outro";
 
     const blankVideoPath = `${outputFolder}/output.mp4`;
@@ -23,7 +20,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       .output(blankVideoPath)
       .on("end", () => {
         ffmpeg()
-          .input(backgroundVideoPath)
           .input(blankVideoPath)
           .complexFilter([
             {
