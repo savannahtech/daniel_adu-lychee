@@ -4,17 +4,17 @@ import ffmpeg from "fluent-ffmpeg";
 
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
- 
+
   const {brandKitName, action} = req.body
 
   console.log('req--->',req.body)
 
   try {
-    const backgroundVideoPath = "./public/black-video-bg.mp4";
+    const backgroundVideoPath = "./public/video-bg.mp4";
 
     const outputFolder = "./public/output-outro";
 
-    const blankVideoPath = `${outputFolder}/blank.mp4`;
+    const blankVideoPath = `${outputFolder}/output.mp4`;
 
     ffmpeg()
       .input("color=black@0.0:size=720x1280")
@@ -40,7 +40,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             },
           ])
           .output(`${outputFolder}/${brandKitName}.mp4`)
-          .on("end", () => console.log("Outro video generation finished"))
+          .on("end", () => console.log("Outro video generation completed"))
           .on("error", (err) => console.error(`Error: ${err.message}`))
           .run();
       })
@@ -49,7 +49,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     res.json({success: true, message: "Outro successfully generated"});
   } catch (error) {
-    console.log("create-outro-error -->", error);
-    res.json({success: false, message: "An error occured !"});
+    console.log("error--->", error);
+    res.json({success: false, message: "error occured"});
   }
 }

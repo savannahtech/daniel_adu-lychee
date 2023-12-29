@@ -3,7 +3,7 @@ import { DefaultCallToActions } from "../utils/constants";
 import { INavMenu, IOutroView, ISelectOpions } from "../utils/interfaces";
 
 
-export default function OutroView({formValues, setFormValues}:IOutroView){
+export default function OutroView({formValues, setFormValues, handleChange}:IOutroView){
 
     const [calltoActionList, setCalltoActionList] = useState<any>(DefaultCallToActions);
     const [customAction, setCustomeAction] = useState<any>({});
@@ -37,9 +37,7 @@ export default function OutroView({formValues, setFormValues}:IOutroView){
     
 
 
-    function handleChange({ target }:{target: any}) {
-        setFormValues({ ...formValues, [target.name]: target.value});
-    }
+
 
     function handleChangeCustomeAction({ target }:{target: any}) {
         setCustomeAction({ label: "customAction", value:target.value})

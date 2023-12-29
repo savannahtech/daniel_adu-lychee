@@ -7,7 +7,8 @@ export interface INavMenu {
 
 export interface IOutroView {
     formValues: any;
-    setFormValues: (formValues: any) => void
+    setFormValues: (formValues: any) => void,
+    handleChange: ((formValues: any) => void)
 
 }
 

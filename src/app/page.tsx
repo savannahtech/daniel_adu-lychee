@@ -11,13 +11,13 @@ export default function Home() {
 
   function handleChange({ target }:{target: any}) {
     setFormValues({ ...formValues, [target.name]: target.value});
-}
+  }
 
 
   const displayMenuFeature : TDisplayMenuFeature = {
     texts: <div>Texts Feature</div>,
     logo: <div>Logo Feature</div>,
-    outro: <OutroView formValues={formValues} setFormValues={setFormValues}/>,
+    outro: <OutroView formValues={formValues} setFormValues={setFormValues} handleChange={handleChange}/>,
     broll: <div>B-roll Feature</div>,
     customBrandkit: <div>Custom Brand Kit Feature</div>,
   }
@@ -27,11 +27,10 @@ export default function Home() {
   }, [])
 
   const generateVideo = async () => {
-    if(!formValues?.action) return alert("Call to action is required")
-    if(!formValues?.brandKitName) return alert("Brand Kit Name is required")
-
     console.log("formValues",formValues)
-
+    if(!formValues?.brandKitName) return alert("Brand Kit Name is required")
+    if(!formValues?.action) return alert("Call to action is required")
+  
   
     try {
       const response = await fetch('/api/video/generate-video', {
@@ -43,15 +42,13 @@ export default function Home() {
       });
   
       if (response.ok) {
-        console.log('Video generation initiated');
+        alert('Video generation successfully');
         // Handle success
       } else {
-        console.log('Failed to initiate video generation');
-        // Handle error
+        alert('Failed to initiate video generation');
       }
     } catch (error) {
       console.log('Error:', error);
-      // Handle network or other errors
     }
   };
   
@@ -79,7 +76,7 @@ export default function Home() {
               </div> 
             </div>
             <hr className="border-t mt-10 mb-5" />
-            <button type="submit" className="bg-[#2237FF] text-xs p-1 text-white px-4 rounded-md" onClick={generateVideo}>Save</button>
+            <button type="button" className="bg-[#2237FF] text-xs p-1 text-white px-4 rounded-md" onClick={generateVideo}>Save</button>
           </div>
         </div>
         
